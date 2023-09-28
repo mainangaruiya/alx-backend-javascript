@@ -1,0 +1,12 @@
+{
+  "name": "0x01-ES6_promise", 
+  "version": "1.0.0",
+  "description": "Your project description",
+  "main": "0-main.js", 
+  "scripts": {
+    "start": "node 0-main.js" 
+  },
+  "dependencies": {
+    
+  }
+}
