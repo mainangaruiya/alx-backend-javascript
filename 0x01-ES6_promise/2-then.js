@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 export default function handleResponseFromAPI(promise) {
   return promise
     .then(() => {

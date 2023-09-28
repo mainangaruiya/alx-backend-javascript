@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import getFullResponseFromAPI from './1-promise';
 
 console.log(getFullResponseFromAPI(true));

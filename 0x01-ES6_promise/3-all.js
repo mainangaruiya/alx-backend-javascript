@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { uploadPhoto, createUser } from './utils';
 
 export default function handleProfileSignup() {

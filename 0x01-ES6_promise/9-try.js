@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 export default function guardrail(mathFunction) {
   const queue = [];
 
