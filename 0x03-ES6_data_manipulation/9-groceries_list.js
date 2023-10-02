@@ -1,11 +1,16 @@
-const cleanSet = (set, startString) => {
-  if (startString === undefined || startString.length === 0) {
-    return '';
+const groceriesList = () => {
+  const res = new Map();
+  const objetos = {
+    Apples: 10,
+    Tomatoes: 10,
+    Pasta: 1,
+    Rice: 1,
+    Banana: 5,
+  };
+  for (const key of Object.keys(objetos)) {
+    res.set(key, objetos[key]);
   }
-  return [...set]
-    .filter((parametro) => (parametro !== undefined ? parametro.startsWith(startString) : ''))
-    .map((parametro) => (parametro !== undefined ? parametro.slice(startString.length) : ''))
-    .join('-');
+  return res;
 };
 
-export default cleanSet;
+export default groceriesList;
