@@ -1,0 +1,1 @@
+Export a const instance of WeakMap and name it weakMap.
