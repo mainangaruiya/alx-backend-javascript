@@ -1,46 +1,48 @@
-const fs = require('fs/promises');
+const { readFile } = require('fs');
 
 /**
  * Counts the students in a CSV data file.
  * @param {String} dataPath The path to the CSV data.
  */
-const countStudents = (dataPath) => new Promise((resolve, reject) => {
-  fs.readFile(dataPath, 'utf8')
-    .then((data) => {
-      const lines = data.split('\n');
-      const students = [];
 
-      for (const line of lines) {
-        if (line === '') continue;
 
-        const [firstName, field] = line.split(',');
-        students.push({ firstName, field });
-      }
-
-      const numberOfStudents = students.length;
-      console.log(`Number of students: ${numberOfStudents}`);
-
-      const fieldCounts = {};
-      for (const student of students) {
-        const field = student.field;
-        if (!fieldCounts[field]) {
-          fieldCounts[field] = [];
+function countStudents(fileName) {
+  const students = {};
+  const fields = {};
+  let length = 0;
+  return new Promise((resolve, reject) => {
+    readFile(fileName, (error, data) => {
+      if (error) {
+        reject(Error('Cannot load the database'));
+      } else {
+        const lines = data.toString().split('\n');
+        for (let i = 0; i < lines.length; i += 1) {
+          if (lines[i]) {
+            length += 1;
+            const field = lines[i].toString().split(',');
+            if (Object.prototype.hasOwnProperty.call(students, field[3])) {
+              students[field[3]].push(field[0]);
+            } else {
+              students[field[3]] = [field[0]];
+            }
+            if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
+              fields[field[3]] += 1;
+            } else {
+              fields[field[3]] = 1;
+            }
+          }
         }
-        fieldCounts[field].push(student.firstName);
+        const l = length - 1;
+        console.log(`Number of students: ${l}`);
+        for (const [key, value] of Object.entries(fields)) {
+          if (key !== 'field') {
+            console.log(`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
+          }
+        }
+        resolve(data);
       }
-
-      for (const field in fieldCounts) {
-        const numberOfStudentsInField = fieldCounts[field].length;
-        const listOfFirstNames = fieldCounts[field].join(', ');
-        console.log(`Number of students in ${field}: ${numberOfStudentsInField}. List: ${listOfFirstNames}`);
-      }
-
-      resolve(students);
-    })
-    .catch((error) => {
-      console.error('Cannot load the database');
-      reject(error);
     });
-});
+  });
+}
 
 module.exports = countStudents;
