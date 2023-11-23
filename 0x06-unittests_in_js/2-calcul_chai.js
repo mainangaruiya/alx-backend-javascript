@@ -2,26 +2,23 @@
  * Round to the nearest int then get sum
  */
 
-ffunction calculateNumber(type, a, b) {
-    const an = Math.round(a);
-    const bn = Math.round(b);
-    let c = 0;
-    switch (type) {
+function calculateNumber(type, a, b) {
+  const an = Math.round(a);
+  const bn = Math.round(b);
+
+  switch (type) {
     case 'SUM':
-  c = an + bn;
-  break;
+      return an + bn;
     case 'SUBTRACT':
-  c = an - bn;
-  break;
+      return an - bn;
     case 'DIVIDE':
       if (bn === 0) {
-            c = "Error";
-      } else {
-            c = an / bn;
+        return 'Error';
       }
-      break;
-    }
-    return c;
+      return an / bn;
+    default:
+      throw new Error('Invalid operation type');
+  }
 }
 
 module.exports = calculateNumber;
